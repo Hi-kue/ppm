@@ -18,15 +18,19 @@ class SHA256():
         empty = []
         hashed_passwords = []
 
-        if len(password) != empty:
+        if len(password) != empty & type == 1:
             # Return an array of hashed values with their counterparts in a file.
             for i in enumerate(password):
                 hashed_passwords = hashlib.sha256(
                     i.encode('utf-8')
                 ).hexdigest()
 
-                # File format ->  password : hashed password
-                file_path.write(f'{i} : {hashed_passwords}')
+                if file_path.mode == 'a+':
+                    # File format ->  password : hashed password
+                    file_path.write(f'{password[i]} : {hashed_passwords}')
+
+                    # return hashed passwords for data manipulation
+                    return hashed_passwords
 
             return print(f'{colors.CBOLD}{colors.CGREENBG2}{colors.CBLACK}Hashing successful.{colors.ENDC}')
 
