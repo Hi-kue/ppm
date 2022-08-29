@@ -3,20 +3,24 @@ from tkinter import *
 import customtkinter
 from colors import colors
 import random
+import datetime
 
 # Custom Properties for Application
-BG_COLOR = '#16262E'
-FG_COLOR = '#FBF7F4'
-HOVER_COLOR = '#FFFCF9'
-HOVER_TEXTC = '#071013'
-
 HEIGHT = 700
 WIDTH = 735
 
+# Button Defaults & Customization Variables
 DEFAULT_TEXT = 'EMPTY TEXT'
 QUERY_TEXT = 'QUERY'
 SUBMIT_TEXT = 'SUBMIT'
 HASH_TEXT = 'HASH'
+
+TEXT_COLOR = '#363636'
+HOVER_COLOR = '#f2f2f2'
+BORDER_COLOR = '#d3d3d3'
+BG_COLOR = '#262626'
+FG_COLOR = '#fafafa'
+
 
 # Pre Determined Variables for Ease of Modification
 LAB_WIDTH = 350
@@ -27,6 +31,10 @@ CORNER_RAD = 3
 # Random Colour Combinations
 colour = '#' + ('%06x' % random.randint(0, 0xFFFFFF))
 
+
+# Date
+current_time = datetime.datetime.now()
+
 app = customtkinter.CTk()
 
 # Initial Appearence Using CTK
@@ -36,8 +44,26 @@ customtkinter.set_default_color_theme("dark-blue")
 
 class COMMANDS():
     # Submits the Values Inputted from User
-    def SUBMIT():
-        return print(f'{colors.CBOLD}{colors.CVIOLETBG}{colors.CWHITE2}SUBMIT BUTTON PRESSED.{colors.ENDC}')
+    def SUBMIT(self):
+        # Show In Terminal That Command.SUBMIT is Clicked
+        print(
+            f'{colors.CBOLD}{colors.CVIOLETBG}{colors.CWHITE2}SUBMIT BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
+
+    def QUERY():
+        # Show In Terminal That Command.QUERY is Clicked
+        print(
+            f'{colors.CBOLD}{colors.CBEIGEBG}{colors.CBLACK}QUERY BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
+
+        # Database Intigration Finalize : Num, Email, Password, Type, Name (O)
+
+    def HASH():
+        # Show In Terminal That Command.HASH is Clicked
+        print(
+            f'{colors.CBOLD}{colors.CREDBG2}{colors.CBLACK}HASH BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
+
+        # SHA256 Hashing Passwords
+
+    # Default COMMAND
 
     def DEFAULT():
         return print(f'{colors.CBOLD}{colors.CVIOLETBG}{colors.CWHITE2}DEFAULT BUTTON PRESSED.{colors.ENDC}')
@@ -260,23 +286,40 @@ class APP(customtkinter.CTk, COMMANDS):
         # BUTTON FOR : SUBMITTING USER INFORMATION (SUBMIT)
         self.SubmitBUTTON = customtkinter.CTkButton(
             master=self.frame_left,
+            command=COMMANDS.SUBMIT,
             text=SUBMIT_TEXT,
-            text_font=(T_FONT, 10),
+            text_font='Candara 12 bold',
+            text_color=TEXT_COLOR,
+            hover=True,
+            hover_color=HOVER_COLOR,
+            height=40,
+            width=120,
             border_width=2,
-            border_color=str(colour),
-            command=COMMANDS.DEFAULT
+            corner_radius=5,
+            border_color=BORDER_COLOR,
+            bg_color=BG_COLOR,
+            fg_color=FG_COLOR
         )
+
         self.SubmitBUTTON.grid(
             row=0, column=0, columnspan=2, rowspan=2, padx=10, pady=10)
 
         # BUTTON FOR : HASHING PASSWORDS USER PROVIDED (HASH)
         self.hashBUTTON = customtkinter.CTkButton(
             master=self.frame_left,
+            command=COMMANDS.HASH,
             text=HASH_TEXT,
-            text_font=(T_FONT, 10),
+            text_font='Candara 12 bold',
+            text_color=TEXT_COLOR,
+            hover=True,
+            hover_color=HOVER_COLOR,
+            height=40,
+            width=120,
             border_width=2,
-            border_color=str(colour),
-            command=COMMANDS.DEFAULT
+            corner_radius=5,
+            border_color=BORDER_COLOR,
+            bg_color=BG_COLOR,
+            fg_color=FG_COLOR
 
         )
         self.hashBUTTON.grid(
@@ -285,11 +328,19 @@ class APP(customtkinter.CTk, COMMANDS):
         # BUTTON FOR : QUERYING USER INFORMATION INTO DATABASE (QUERY)
         self.queryBUTTON = customtkinter.CTkButton(
             master=self.frame_left,
+            command=COMMANDS.QUERY,
             text=QUERY_TEXT,
-            text_font=(T_FONT, 10),
+            text_font='Candara 12 bold',
+            text_color=TEXT_COLOR,
+            hover=True,
+            hover_color=HOVER_COLOR,
+            height=40,
+            width=120,
             border_width=2,
-            border_color=str(colour),
-            command=COMMANDS.DEFAULT
+            corner_radius=5,
+            border_color=BORDER_COLOR,
+            bg_color=BG_COLOR,
+            fg_color=FG_COLOR
         )
         self.queryBUTTON.grid(
             row=5, column=0, columnspan=2, rowspan=2, padx=10, pady=10)
@@ -299,6 +350,16 @@ class APP(customtkinter.CTk, COMMANDS):
     def close_app(self, event=1):
         if event == 1:
             self.destroy()
+
+    def on_enter(self, e):
+        self.hashBUTTON
+
+    def on_leave(e):
+        pass
+    
+    def add_to_database(self, e):
+        # Database Intigration : Num, Email, Password, Type, Name (O)
+        pass 
 
 
 if __name__ == "__main__":
