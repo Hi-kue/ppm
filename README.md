@@ -5,9 +5,9 @@
 The format of the database information is as **follows**:
 
 - NTKIM:
-    ...`Note:` NUM can also be identified as ID Integer
-    ...`Note:` TYPE can either be GA, VA, OA, or IA
-    ...`Note:` Name is often used for VA or OA accounts, it can also be N/A
+    ...`Note:` NUM can also be identified as ID Integer...
+    ...`Note:` TYPE can either be GA, VA, OA, or IA...
+    ...`Note:` Name is often used for VA or OA accounts, it can also be N/A...
 
 | NUM(ID)| EMAIL             |PASSWORD       |TYPE   |NAME   |
 |:-------|:-----------------:|:--------------|:------|:------|
