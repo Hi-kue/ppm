@@ -11,20 +11,20 @@ class SHA256():
     def __init__(self, type):
         self.type = type
 
-    def CPSHA256(password=[], type=1) -> None:
+    def CPSHA256(*args, type=1) -> None:
         empty = []
         hashed_passwords = []
 
-        if len(password) != empty & type == 1:
+        if len(args) != empty & type == 1:
             # Return an array of hashed values with their counterparts in a file.
-            for i in enumerate(password):
+            for i in enumerate(args):
                 hashed_passwords = hashlib.sha256(
                     i.encode('utf-8')
                 ).hexdigest()
 
                 if file_path.mode == 'a+':
                     # File format ->  password : hashed password
-                    file_path.write(f'{password[i]} : {hashed_passwords}')
+                    file_path.write(f'{args[i]} : {hashed_passwords}')
 
                     # return hashed passwords for data manipulation
                     return hashed_passwords
