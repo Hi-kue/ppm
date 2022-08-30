@@ -147,6 +147,9 @@ class APP(customtkinter.CTk, COMMANDS):
         self.lower_frame_right.grid_columnconfigure(1, weight=1)
 
         # ==========Configuring Labels============
+        
+        # INPUT FOR COLLECTING USER RESPONSE
+        
 
         # LABEL For PPM Introduction
         self.LabelPPM = customtkinter.CTkLabel(
