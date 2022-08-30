@@ -10,4 +10,4 @@ class CONNECTIONDB():
         )
         
         cursor = database.cursor()
-        cursor.execute
+        cursor.execute()
