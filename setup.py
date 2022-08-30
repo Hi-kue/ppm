@@ -7,7 +7,7 @@ import datetime
 
 # Custom Properties for Application
 HEIGHT = 700
-WIDTH = 735
+WIDTH = 700
 
 # Button Defaults & Customization Variables
 DEFAULT_TEXT = 'EMPTY TEXT'
@@ -354,8 +354,8 @@ class APP(customtkinter.CTk, COMMANDS):
         if event == 1:
             self.destroy()
 
-    def on_enter(self, e):
-        self.hashBUTTON
+    def on_enter(self, event=1):
+        pass 
 
     def on_leave(e):
         pass

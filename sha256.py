@@ -1,4 +1,3 @@
-from turtle import color
 import hashlib
 import os
 from colors import colors
@@ -8,8 +7,6 @@ folder_path = os.makedir('PASSWORDS')
 file_path = open('PASSWORDS/PASSWORDS[SHA256].txt', 'a+')
 
 # NOTE: sha256.py used to convert normal passwords into hashes.
-
-
 class SHA256():
     def __init__(self, type):
         self.type = type
