@@ -1,6 +1,6 @@
 import tkinter
-from tkinter import *
-import customtkinter
+from tkinter import scrolledtext
+import customtkinter as customtkinter
 from colors import colors
 import random
 import datetime
@@ -15,10 +15,10 @@ QUERY_TEXT = 'QUERY'
 SUBMIT_TEXT = 'SUBMIT'
 HASH_TEXT = 'HASH'
 
-TEXT_COLOR = '#363636'
-HOVER_COLOR = '#f2f2f2'
-BORDER_COLOR = '#d3d3d3'
-BG_COLOR = '#262626'
+TEXT_COLOR = '#e8e8e8'
+HOVER_COLOR = '#7F8487'
+BORDER_COLOR = '#474647'
+BG_COLOR = '#413F42'
 FG_COLOR = '#fafafa'
 
 
@@ -44,19 +44,19 @@ customtkinter.set_default_color_theme("dark-blue")
 
 class COMMANDS():
     # Submits the Values Inputted from User
-    def SUBMIT(self):
+    def SUBMIT() -> str:
         # Show In Terminal That Command.SUBMIT is Clicked
         print(
             f'{colors.CBOLD}{colors.CVIOLETBG}{colors.CWHITE2}SUBMIT BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
 
-    def QUERY():
+    def QUERY() -> str:
         # Show In Terminal That Command.QUERY is Clicked
         print(
             f'{colors.CBOLD}{colors.CBEIGEBG}{colors.CBLACK}QUERY BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
 
         # Database Intigration Finalize : Num, Email, Password, Type, Name (O)
 
-    def HASH():
+    def HASH() -> str:
         # Show In Terminal That Command.HASH is Clicked
         print(
             f'{colors.CBOLD}{colors.CREDBG2}{colors.CBLACK}HASH BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
@@ -132,7 +132,7 @@ class APP(customtkinter.CTk, COMMANDS):
             corner_radius=5
         )
 
-        # UPPER RIGHT FRAME FOR PURPOSE, ETC
+        # LOWER RIGHT FRAME FOR PURPOSE, ETC
         self.lower_frame_right.grid(
             row=6,
             column=0,
@@ -147,9 +147,8 @@ class APP(customtkinter.CTk, COMMANDS):
         self.lower_frame_right.grid_columnconfigure(1, weight=1)
 
         # ==========Configuring Labels============
-        
+
         # INPUT FOR COLLECTING USER RESPONSE
-        
 
         # LABEL For PPM Introduction
         self.LabelPPM = customtkinter.CTkLabel(
@@ -300,15 +299,14 @@ class APP(customtkinter.CTk, COMMANDS):
             border_width=2,
             corner_radius=5,
             border_color=BORDER_COLOR,
-            bg_color=BG_COLOR,
-            fg_color=FG_COLOR
+            fg_color=BG_COLOR,
         )
 
         self.SubmitBUTTON.grid(
             row=0, column=0, columnspan=2, rowspan=2, padx=10, pady=10)
 
         # BUTTON FOR : HASHING PASSWORDS USER PROVIDED (HASH)
-        self.hashBUTTON = customtkinter.CTkButton(
+        self.HashBUTTON = customtkinter.CTkButton(
             master=self.frame_left,
             command=COMMANDS.HASH,
             text=HASH_TEXT,
@@ -321,15 +319,14 @@ class APP(customtkinter.CTk, COMMANDS):
             border_width=2,
             corner_radius=5,
             border_color=BORDER_COLOR,
-            bg_color=BG_COLOR,
-            fg_color=FG_COLOR
+            fg_color=BG_COLOR,
 
         )
-        self.hashBUTTON.grid(
+        self.HashBUTTON.grid(
             row=3, column=0, columnspan=2, rowspan=2, padx=10, pady=10)
 
         # BUTTON FOR : QUERYING USER INFORMATION INTO DATABASE (QUERY)
-        self.queryBUTTON = customtkinter.CTkButton(
+        self.QueryBUTTON = customtkinter.CTkButton(
             master=self.frame_left,
             command=COMMANDS.QUERY,
             text=QUERY_TEXT,
@@ -342,27 +339,38 @@ class APP(customtkinter.CTk, COMMANDS):
             border_width=2,
             corner_radius=5,
             border_color=BORDER_COLOR,
-            bg_color=BG_COLOR,
-            fg_color=FG_COLOR
+            fg_color=BG_COLOR,
         )
-        self.queryBUTTON.grid(
+        self.QueryBUTTON.grid(
             row=5, column=0, columnspan=2, rowspan=2, padx=10, pady=10)
 
         # ====================BREAKER======================
+
+        # INPUT FOR : PROVIDING USER CLARIFICATION ON BUTTONS - SUBMIT, QUERY, HASH
+        self.InfoINPUT = customtkinter.CTk(
+            master=self.lower_frame_right,
+            width=450,
+            height=150,
+            corner_radius=5,
+            text_font=(T_FONT, 10),
+            justify=tkinter.LEFT,
+        )
+
+        self.InfoINPUT.grid(
+            row=0, column=0, padx=10, pady=10)
 
     def close_app(self, event=1):
         if event == 1:
             self.destroy()
 
-    def on_enter(self, event=1):
-        pass 
+    def info_values(self):
+        self.InfoINPUT.insert(
+            customtkinter.END, 'Submit Button Has Been Pressed\n'
+        )
 
-    def on_leave(e):
-        pass
-    
     def add_to_database(self, e):
         # Database Intigration : Num, Email, Password, Type, Name (O)
-        pass 
+        pass
 
 
 if __name__ == "__main__":
