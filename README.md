@@ -4,8 +4,6 @@
 
 The format of the database information is as **follows**:
 
-- NTKIM:
-
 
    `Note:` NUM can also be identified as ID Integer
 
@@ -32,3 +30,15 @@ Each and every information will pass through a database check & input, they will
  'NAME': 'Allis' or N/A
 }
 ```
+
+# HASHING PASSWORDS - sha256.py
+
+**Hashing** is fairly important when it comes privacy and protection against hackers who often obtain access to relational databases. Within PPM, there is an option to hash the passwords that you have provided. Hashing the passwords will prevent hackers from obtaining string encoded values of passwords for each email that you may have, or anything of that equivalent.
+
+After utilizing the hashing feature, you will be provided with a folder PASSWORDS (can be changed to something more subtle) where there will be a file containing your passwords and hashed passwords in the following order:
+
+
+   `password` : `hashed password`
+
+
+From there, hashing the passwords will also hash the passwords within the database. You can however, use the .txt file in folder PASSWORDS to use for other purposes later. 
