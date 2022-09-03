@@ -1,9 +1,10 @@
 import tkinter
-from tkinter import scrolledtext
-import customtkinter as customtkinter
-from colors import colors
+import customtkinter
 import random
+from commands import COMMANDS
+from colors import colors
 import datetime
+from tabulate import tabulate
 
 # Custom Properties for Application
 HEIGHT = 700
@@ -28,11 +29,8 @@ LAB_HEIGHT = 30
 T_FONT = 'Candara'
 CORNER_RAD = 3
 
-# Random Colour Combinations
+# Random Colour Combinations + Other
 colour = '#' + ('%06x' % random.randint(0, 0xFFFFFF))
-
-
-# Date
 current_time = datetime.datetime.now()
 
 app = customtkinter.CTk()
@@ -40,33 +38,6 @@ app = customtkinter.CTk()
 # Initial Appearence Using CTK
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("dark-blue")
-
-
-class COMMANDS():
-    # Submits the Values Inputted from User
-    def SUBMIT() -> str:
-        # Show In Terminal That Command.SUBMIT is Clicked
-        print(
-            f'{colors.CBOLD}{colors.CVIOLETBG}{colors.CWHITE2}SUBMIT BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
-
-    def QUERY() -> str:
-        # Show In Terminal That Command.QUERY is Clicked
-        print(
-            f'{colors.CBOLD}{colors.CBEIGEBG}{colors.CBLACK}QUERY BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
-
-        # Database Intigration Finalize : Num, Email, Password, Type, Name (O)
-
-    def HASH() -> str:
-        # Show In Terminal That Command.HASH is Clicked
-        print(
-            f'{colors.CBOLD}{colors.CREDBG2}{colors.CBLACK}HASH BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
-
-        # SHA256 Hashing Passwords
-
-    # Default COMMAND
-
-    def DEFAULT():
-        return print(f'{colors.CBOLD}{colors.CVIOLETBG}{colors.CWHITE2}DEFAULT BUTTON PRESSED.{colors.ENDC}')
 
 
 class APP(customtkinter.CTk, COMMANDS):
@@ -207,7 +178,7 @@ class APP(customtkinter.CTk, COMMANDS):
         )
         self.LabelEMAIL.grid(row=1, column=0, pady=5, padx=0)
 
-        self.InputNUM = customtkinter.CTkEntry(
+        self.InputEMAIL = customtkinter.CTkEntry(
             master=self.frame_right,
             width=LAB_WIDTH,
             height=LAB_HEIGHT,
@@ -215,7 +186,7 @@ class APP(customtkinter.CTk, COMMANDS):
             text_font=(T_FONT, 10),
             justify=tkinter.LEFT,
         )
-        self.InputNUM.grid(row=1, column=1, pady=5, padx=0)
+        self.InputEMAIL.grid(row=1, column=1, pady=5, padx=0)
 
         # ====================BREAKER======================
 
@@ -288,7 +259,7 @@ class APP(customtkinter.CTk, COMMANDS):
         # BUTTON FOR : SUBMITTING USER INFORMATION (SUBMIT)
         self.SubmitBUTTON = customtkinter.CTkButton(
             master=self.frame_left,
-            command=COMMANDS.SUBMIT,
+            command=self.submit,
             text=SUBMIT_TEXT,
             text_font='Candara 10 bold',
             text_color=TEXT_COLOR,
@@ -347,30 +318,72 @@ class APP(customtkinter.CTk, COMMANDS):
         # ====================BREAKER======================
 
         # INPUT FOR : PROVIDING USER CLARIFICATION ON BUTTONS - SUBMIT, QUERY, HASH
-        self.InfoINPUT = customtkinter.CTk(
+        self.InfoINPUT = customtkinter.CTkTextbox(
             master=self.lower_frame_right,
             width=450,
             height=150,
             corner_radius=5,
-            text_font=(T_FONT, 10),
-            justify=tkinter.LEFT,
+            text_font=('Segoe UI Symbol', 10),
+            text_color=FG_COLOR,
+            # justify=tkinter.LEFT,
         )
 
         self.InfoINPUT.grid(
             row=0, column=0, padx=10, pady=10)
 
+        # SCROLL FOR TEXTBOX : PROVIDES AUTO SCROLLABILITY
+        self.InfoSCROLL = customtkinter.CTkScrollbar(
+            master=self.InfoINPUT,
+            command=self.InfoINPUT.yview,
+            scrollbar_hover_color=HOVER_COLOR,
+            orientation='vertical',
+            hover=True
+        )
+
+        self.InfoSCROLL.grid(row=0, column=1, sticky='ns')
+
     def close_app(self, event=1):
         if event == 1:
             self.destroy()
 
-    def info_values(self):
-        self.InfoINPUT.insert(
-            customtkinter.END, 'Submit Button Has Been Pressed\n'
-        )
+    # TODO: WORK ON COMMANDS
+    def submit(self):
+        # Prompted Text Shows Within Textbox Widget -> Provides User Information Submitted
 
-    def add_to_database(self, e):
-        # Database Intigration : Num, Email, Password, Type, Name (O)
-        pass
+        submit_content = {
+            'NUM:': self.InputNUM.get(),
+            'EMAIL:': self.InputEMAIL.get(),
+            'PASSWORD:': self.InputPASSWORD.get(),
+            'TYPE:': self.InputTYPE.get(),
+            'NAME:': self.InputNAME.get(),
+            # 'INFO:': f'Submitted at {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}'
+        }
+
+        self.InfoINPUT.insert(customtkinter.EXTENDED, tabulate(
+            submit_content.items(),
+            headers=['VALUES', 'USER IN'],
+            showindex=True,
+            tablefmt='grid',
+        ))
+
+        print(tabulate(
+            submit_content.items(),
+            headers=['VALUES', 'USER IN'],
+            showindex=True,
+            tablefmt='grid'
+        ))
+
+        # Return Button Pressed In Terminal
+        print(
+            f'{colors.CBOLD}{colors.CVIOLETBG}{colors.CWHITE2}SUBMIT BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
+
+    def hash(self, **kwargs):
+        print(
+            f'{colors.CBOLD}{colors.CREDBG2}{colors.CBLACK}HASH BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
+
+    def query(self, *args):
+        print(
+            f'{colors.CBOLD}{colors.CBEIGEBG}{colors.CBLACK}QUERY BUTTON PRESSED AT: {current_time.strftime("%y-%m-%d ~ %H:%M:%S")}{colors.ENDC}')
 
 
 if __name__ == "__main__":
