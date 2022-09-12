@@ -1,7 +1,6 @@
 import tkinter
 import customtkinter
 import random
-from commands import COMMANDS
 from colors import colors
 import datetime
 from tabulate import tabulate
@@ -40,7 +39,7 @@ customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("dark-blue")
 
 
-class APP(customtkinter.CTk, COMMANDS):
+class APP(customtkinter.CTk):
     def __init__(self) -> None:
         super().__init__()
 
@@ -279,7 +278,7 @@ class APP(customtkinter.CTk, COMMANDS):
         # BUTTON FOR : HASHING PASSWORDS USER PROVIDED (HASH)
         self.HashBUTTON = customtkinter.CTkButton(
             master=self.frame_left,
-            command=COMMANDS.HASH,
+            #command=COMMANDS.HASH,
             text=HASH_TEXT,
             text_font='Candara 10 bold',
             text_color=TEXT_COLOR,
@@ -299,7 +298,7 @@ class APP(customtkinter.CTk, COMMANDS):
         # BUTTON FOR : QUERYING USER INFORMATION INTO DATABASE (QUERY)
         self.QueryBUTTON = customtkinter.CTkButton(
             master=self.frame_left,
-            command=COMMANDS.QUERY,
+            #command=COMMANDS.QUERY,
             text=QUERY_TEXT,
             text_font='Candara 10 bold',
             text_color=TEXT_COLOR,
